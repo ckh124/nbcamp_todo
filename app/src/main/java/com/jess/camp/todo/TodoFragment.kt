@@ -44,7 +44,7 @@ class TodoFragment : Fragment() {
             )
         }
 
-        listAdapter.submitList(testList)
+        listAdapter.addItems(testList)
     }
 
     private fun initView() = with(binding) {

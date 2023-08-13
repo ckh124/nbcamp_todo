@@ -2,24 +2,21 @@ package com.jess.camp.todo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.jess.camp.bookmark.BookmarkListAdapter
 import com.jess.camp.databinding.TodoItemBinding
 
-class TodoListAdapter : ListAdapter<TodoModel, TodoListAdapter.ViewHolder>(diffUtil) {
+class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
-    companion object {
-        private val diffUtil = object : DiffUtil.ItemCallback<TodoModel>() {
+    private val list = ArrayList<TodoModel>()
 
-            override fun areContentsTheSame(oldItem: TodoModel, newItem: TodoModel): Boolean {
-                return oldItem == newItem
-            }
+    fun addItems(items: List<TodoModel>) {
+        list.addAll(items)
+        notifyDataSetChanged()
+    }
 
-            override fun areItemsTheSame(oldItem: TodoModel, newItem: TodoModel): Boolean {
-                return oldItem.id == newItem.id
-            }
-        }
+    override fun getItemCount(): Int {
+        return list.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,7 +26,8 @@ class TodoListAdapter : ListAdapter<TodoModel, TodoListAdapter.ViewHolder>(diffU
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = list[position]
+        holder.bind(item)
     }
 
     class ViewHolder(
