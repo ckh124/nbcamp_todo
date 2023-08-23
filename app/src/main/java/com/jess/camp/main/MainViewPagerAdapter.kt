@@ -15,15 +15,15 @@ class MainViewPagerAdapter(
 
     init {
         fragments.add(
-            MainTabs(TodoFragment.newInstance(), R.string.main_tab_todo_title)
+            MainTabs(TodoFragment.newInstance(), "todo")
         )
         fragments.add(
-            MainTabs(BookmarkFragment.newInstance(), R.string.main_tab_bookmark_title),
+            MainTabs(BookmarkFragment.newInstance(), "Bookmark"),
         )
     }
 
-    fun getTitle(position: Int): Int {
-        return fragments[position].titleRes
+    fun getTitle(position: Int): String {
+        return fragments[position].title
     }
 
     override fun getItemCount(): Int {
@@ -32,5 +32,8 @@ class MainViewPagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return fragments[position].fragment
+    }
+    fun getTodoFragment(): TodoFragment{
+        return fragments.get(0).fragment as TodoFragment
     }
 }

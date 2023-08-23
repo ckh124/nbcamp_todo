@@ -11,7 +11,10 @@ class TodoFragment : Fragment() {
 
     companion object {
         fun newInstance() = TodoFragment()
+
     }
+
+    var testList = arrayListOf<TodoModel>()
 
     private var _binding: TodoFragmentBinding? = null
     private val binding get() = _binding!!
@@ -20,12 +23,15 @@ class TodoFragment : Fragment() {
         TodoListAdapter()
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = TodoFragmentBinding.inflate(inflater, container, false)
+
+
         return binding.root
     }
 
@@ -34,17 +40,7 @@ class TodoFragment : Fragment() {
         initView()
 
         // for test
-        val testList = arrayListOf<TodoModel>()
-        for (i in 0 until 100) {
-            testList.add(
-                TodoModel(
-                    id = i,
-                    "Todo Title $i"
-                )
-            )
-        }
 
-        listAdapter.addItems(testList)
     }
 
     private fun initView() = with(binding) {
@@ -55,4 +51,16 @@ class TodoFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
+    fun addcontent(title:String,detailText:String){
+        testList.add(TodoModel(title,detailText))
+        listAdapter.addItems(testList)
+        testList.clear()
+
+
+    }
+    fun addContentTodoModel(item:TodoModel){
+        listAdapter.addItem(item)
+    }
+
 }
